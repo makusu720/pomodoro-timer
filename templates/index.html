@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Focus</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#ba4949">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+    <button class="settings-trigger" onclick="openModal()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+    </button>
+
+    <div class="center-stage">
+        <div class="timer-display" id="timer" onclick="toggleTimer()">25:00</div>
+        <div class="status-label" id="status"></div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" id="btn-focus" onclick="setMode('focus')">Pomodoro</button>
+            <button class="mode-btn" id="btn-short" onclick="setMode('short')">Short Break</button>
+            <button class="mode-btn" id="btn-long" onclick="setMode('long')">Long Break</button>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="settings-modal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+
+            <!-- TABS -->
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="switchTab('settings')">Settings</button>
+                <button class="tab-btn" onclick="switchTab('history')">History</button>
+            </div>
+
+            <!-- TAB 1: SETTINGS -->
+            <div id="tab-settings" class="tab-content active">
+                <div class="grid-row">
+                    <div class="input-mini"><label>Focus</label><input type="number" id="cfg-focus" value="25"></div>
+                    <div class="input-mini"><label>Short</label><input type="number" id="cfg-short" value="5"></div>
+                    <div class="input-mini"><label>Long</label><input type="number" id="cfg-long" value="15"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="input-block">
+                    <label>Calendar Feed</label>
+                    <a id="sub-link" href="#" class="link-btn">Subscribe to Calendar</a>
+                </div>
+                <div class="input-block">
+                    <label>User ID</label>
+                    <input type="text" id="uuid-input" spellcheck="false" class="mono-input">
+                </div>
+                <div class="btn-row">
+                    <button class="btn-save" onclick="saveSettings()">Save Changes</button>
+                </div>
+            </div>
+
+            <!-- TAB 2: HISTORY -->
+            <div id="tab-history" class="tab-content">
+                <div id="history-list" class="timeline-container">
+                    <!-- Javascript will load items here -->
+                    <div class="loading-spinner">Loading...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('/static/sw.js');</script>
+</body>
+</html>
