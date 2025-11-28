@@ -2,7 +2,7 @@ name: Build and Publish
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     # Publish tags like v1.0, v2.3.1
     tags: [ 'v*' ]
 
